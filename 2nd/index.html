@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speed Tester</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="heading">WordBeater</h1>
+    </header>
+    <div class="container">
+      <p class="lead">
+        Type the given word within <span id="Seconds">5</span> Seconds
+      </p>
+      <div class="selectLevel">
+        <p>select Level:</p>
+        <div class="radioBtns">
+          <input type="radio" name="select" id="Btn" value="easy" checked />
+          <label for="Easy">Easy</label>
+          <input type="radio" name="select" id="Btn" value="medium" />
+          <label for="Medium">Medium</label>
+          <input type="radio" name="select" id="Btn" value="hard" />
+          <label for="Easy">Hard</label>
+        </div>
+      </div>
+      <h2 id="changeWord" class="word">Hello</h2>
+      <input
+        type="text"
+        name=""
+        id="inputField"
+        placeholder="start typing!"
+        autofocus
+      />
+      <h4 id="message"></h4>
+      <div class="scores">
+        <h3>
+          Time left:
+          <span id="time">0</span>
+        </h3>
+        <h3>
+          Score:
+          <span id="score">0</span>
+        </h3>
+      </div>
+
+      <div class="note">
+        <p id="inst">Instruction</p>
+        <p id="text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ea
+          excepturi ad dolore similique totam hic architecto explicabo tenetur
+          pariatur.
+        </p>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
