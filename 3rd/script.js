@@ -1,6 +1,5 @@
 const draggableList = document.querySelector("#draggable-list");
 const check = document.querySelector(".check");
-// console.log(draggableList, check);
 
 const richestPersons = [
   "Elon Musk",
@@ -14,9 +13,9 @@ const richestPersons = [
   "Sergey Brin",
 ];
 
-// console.log(richestPersons);
 
 const listItems = [];
+let dragStartIndex;
 
 updateList();
 
@@ -26,10 +25,8 @@ function updateList() {
     .sort((a, b) => a.sort - b.sort)
     .map((a) => a.value)
     .forEach((person, idx) => {
-      // console.log(person);
       const listItem = document.createElement("li");
 
-      // listItem.classList.add('over')
       listItem.setAttribute("data-index", idx);
       listItem.innerHTML = `
     <span class="number">${idx + 1}</span>
@@ -41,4 +38,64 @@ function updateList() {
       listItems.push(listItem);
       draggableList.appendChild(listItem);
     });
+  
+  addEventListeners();
 }
+function dragStart() {
+  dragStartIndex = +this.closest('li').getAttribute('data-index');
+}
+function dragOver(e) {
+  e.preventDefault();
+}
+function dragDrop() {
+
+  let dropIdx = +this.getAttribute('data-index')
+  swapItem(dragStartIndex, dropIdx);
+  this.classList.remove('over');
+}
+function swapItem(fromIdx, toIdx) {
+  const first = listItems[fromIdx].querySelector('.draggable');
+  const second = listItems[toIdx].querySelector(".draggable");
+  listItems[fromIdx].appendChild(second)
+  listItems[toIdx].appendChild(first)
+}
+function dragEnter() {
+  this.classList.add('over')
+}
+function dragLeave() {
+  this.classList.remove('over')
+}
+
+function checkList() {
+  listItems.forEach((listItem, idx) => {
+    const personName = listItem.querySelector('.draggable').innerText.trim();
+
+    if (personName !== richestPersons[idx]) {
+      listItem.classList.add('wrong');
+    } else {
+      listItem.classList.remove("wrong");
+      listItem.classList.add("right");
+
+      
+    }
+  })
+}
+function addEventListeners() {
+  const draggables = document.querySelectorAll('.draggable')
+  const draggableListItems = document.querySelectorAll('.draggable-list li')
+  console.log(draggableListItems, draggables)
+  
+  draggables.forEach((draggable) => {
+    draggable.addEventListener('dragstart', dragStart)
+  })
+
+  draggableListItems.forEach((item) => {
+    item.addEventListener('dragover',dragOver)
+    item.addEventListener('drop', dragDrop)
+    item.addEventListener('dragenter', dragEnter)
+    item.addEventListener('dragleave', dragLeave)
+    
+  })
+}
+
+check.addEventListener('click', checkList);
